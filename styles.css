@@ -365,8 +365,9 @@ body .chip:hover ~ .cursor-glow {
 
 @media (max-width: 640px) {
   body { cursor: auto; }
+  .cursor-glow { display: none !important; }
+  .mobile-cursor { display: block; }
   .page-shell { padding: 14px 10px 88px; }
-  .cursor-glow { display: none; }
   .mobile-cursor { display: block; }
   .eyebrow { font-size: 0.82rem; letter-spacing: 0.24em; }
   .hero-card { padding: 14px; gap: 14px; }
