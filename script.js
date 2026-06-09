@@ -3,6 +3,12 @@ const mobileCursor = document.getElementById('mobileCursor');
 const flipCards = document.querySelectorAll('.flip-card');
 const nameSplit = document.querySelector('.name-split');
 
+let mobileCursorTargetX = 0;
+let mobileCursorTargetY = 0;
+let mobileCursorCurrentX = 0;
+let mobileCursorCurrentY = 0;
+let mobileCursorRaf = null;
+
 if (nameSplit) {
   nameSplit.innerHTML = Array.from(nameSplit.textContent).map((char, index) => {
     const safeChar = char === ' ' ? '&nbsp;' : char;
@@ -26,6 +32,38 @@ function moveCursor(event) {
   cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
 }
 
+function updateMobileCursor() {
+  if (!mobileCursor) return;
+
+  const easing = 0.18;
+  mobileCursorCurrentX += (mobileCursorTargetX - mobileCursorCurrentX) * easing;
+  mobileCursorCurrentY += (mobileCursorTargetY - mobileCursorCurrentY) * easing;
+
+  mobileCursor.style.left = `${mobileCursorCurrentX}px`;
+  mobileCursor.style.top = `${mobileCursorCurrentY}px`;
+
+  if (Math.abs(mobileCursorTargetX - mobileCursorCurrentX) > 0.2 ||
+      Math.abs(mobileCursorTargetY - mobileCursorCurrentY) > 0.2) {
+    mobileCursorRaf = window.requestAnimationFrame(updateMobileCursor);
+  } else {
+    mobileCursorRaf = null;
+  }
+}
+
+function startSmoothMobileCursor(point) {
+  if (!mobileCursor) return;
+
+  mobileCursorTargetX = point.clientX;
+  mobileCursorTargetY = point.clientY;
+  mobileCursorCurrentX = point.clientX;
+  mobileCursorCurrentY = point.clientY;
+
+  mobileCursor.classList.add('active');
+  if (!mobileCursorRaf) {
+    mobileCursorRaf = window.requestAnimationFrame(updateMobileCursor);
+  }
+}
+
 window.addEventListener('pointermove', moveCursor, { passive: true });
 window.addEventListener('touchmove', moveCursor, { passive: true });
 
@@ -44,11 +82,7 @@ window.addEventListener('blur', () => {
 window.addEventListener('touchstart', (event) => {
   const touch = event.touches[0];
   if (touch) {
-    if (mobileCursor) {
-      mobileCursor.classList.add('active');
-      mobileCursor.style.left = `${touch.clientX}px`;
-      mobileCursor.style.top = `${touch.clientY}px`;
-    }
+    startSmoothMobileCursor(touch);
     const ripple = document.createElement('span');
     ripple.className = 'touch-ripple';
     ripple.style.left = `${touch.clientX}px`;
@@ -61,14 +95,23 @@ window.addEventListener('touchstart', (event) => {
 window.addEventListener('touchmove', (event) => {
   const touch = event.touches[0];
   if (touch && mobileCursor) {
+    mobileCursorTargetX = touch.clientX;
+    mobileCursorTargetY = touch.clientY;
     mobileCursor.classList.add('active');
-    mobileCursor.style.left = `${touch.clientX}px`;
-    mobileCursor.style.top = `${touch.clientY}px`;
+    if (!mobileCursorRaf) {
+      mobileCursorRaf = window.requestAnimationFrame(updateMobileCursor);
+    }
   }
 }, { passive: true });
 
 window.addEventListener('touchend', () => {
-  if (mobileCursor) mobileCursor.classList.remove('active');
+  if (mobileCursor) {
+    mobileCursor.classList.remove('active');
+  }
+  if (mobileCursorRaf) {
+    window.cancelAnimationFrame(mobileCursorRaf);
+    mobileCursorRaf = null;
+  }
 }, { passive: true });
 
 window.addEventListener('pointerdown', (event) => {
