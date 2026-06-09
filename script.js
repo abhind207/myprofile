@@ -1,4 +1,5 @@
 const cursorGlow = document.getElementById('cursorGlow');
+const mobileCursor = document.getElementById('mobileCursor');
 const flipCards = document.querySelectorAll('.flip-card');
 const nameSplit = document.querySelector('.name-split');
 
@@ -43,6 +44,11 @@ window.addEventListener('blur', () => {
 window.addEventListener('touchstart', (event) => {
   const touch = event.touches[0];
   if (touch) {
+    if (mobileCursor) {
+      mobileCursor.classList.add('active');
+      mobileCursor.style.left = `${touch.clientX}px`;
+      mobileCursor.style.top = `${touch.clientY}px`;
+    }
     const ripple = document.createElement('span');
     ripple.className = 'touch-ripple';
     ripple.style.left = `${touch.clientX}px`;
@@ -50,6 +56,19 @@ window.addEventListener('touchstart', (event) => {
     document.body.appendChild(ripple);
     setTimeout(() => ripple.remove(), 700);
   }
+}, { passive: true });
+
+window.addEventListener('touchmove', (event) => {
+  const touch = event.touches[0];
+  if (touch && mobileCursor) {
+    mobileCursor.classList.add('active');
+    mobileCursor.style.left = `${touch.clientX}px`;
+    mobileCursor.style.top = `${touch.clientY}px`;
+  }
+}, { passive: true });
+
+window.addEventListener('touchend', () => {
+  if (mobileCursor) mobileCursor.classList.remove('active');
 }, { passive: true });
 
 window.addEventListener('pointerdown', (event) => {

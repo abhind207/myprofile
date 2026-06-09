@@ -326,6 +326,28 @@ h3 { font-size: 1.05rem; color: #eff6ff; }
   box-shadow: 0 0 10px rgba(125, 211, 252, 0.7);
 }
 
+.mobile-cursor {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 11;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(224, 242, 254, 0.98), rgba(125, 211, 252, 0.55) 38%, rgba(139, 92, 246, 0.22) 65%, transparent 70%);
+  border: 1px solid rgba(224, 242, 254, 0.85);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.12), 0 0 18px rgba(125, 211, 252, 0.35), 0 0 28px rgba(139, 92, 246, 0.18);
+  transition: opacity 0.15s ease, transform 0.12s ease;
+}
+
+.mobile-cursor.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
 body a:hover ~ .cursor-glow,
 body button:hover ~ .cursor-glow,
 body .btn:hover ~ .cursor-glow,
@@ -341,9 +363,13 @@ body .chip:hover ~ .cursor-glow {
 
 @media (max-width: 640px) {
   body { cursor: auto; }
-  .page-shell { padding: 16px 12px 80px; }
+  .page-shell { padding: 14px 10px 88px; }
   .cursor-glow { display: none; }
-  .eyebrow { font-size: 0.86rem; letter-spacing: 0.25em; }
+  .mobile-cursor { display: block; }
+  .eyebrow { font-size: 0.82rem; letter-spacing: 0.24em; }
+  .hero-card { padding: 14px; gap: 14px; }
+  .tagline { font-size: 0.98rem; }
+  .name-split { font-size: clamp(2rem, 10vw, 2.6rem); white-space: normal; line-height: 1.02; }
   .sticky-wrap {
     right: 10px; top: 10px; left: 10px;
     justify-content: flex-start;
