@@ -378,15 +378,21 @@ body .chip:hover ~ .cursor-glow {
     max-width: calc(100vw - 24px);
   }
   .sticky-wrap {
-    right: 10px;
+    position: fixed;
     top: 10px;
     left: 10px;
+    right: 10px;
+    z-index: 7;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    padding-top: 2px;
+    gap: 8px;
+    max-width: none;
+    margin: 0;
   }
-  .about-fab { flex: 1 1 45%; cursor: pointer; min-width: 0; }
-  .sticky-note { border-radius: 14px; text-align: center; }
+  .about-fab { flex: 1 1 0; cursor: pointer; min-width: 0; }
+  .sticky-note { display: none; }
   .hero-card { padding: 16px; gap: 16px; }
   .content-grid { grid-template-columns: 1fr; gap: 16px; }
   .section-card { padding: 16px; }
