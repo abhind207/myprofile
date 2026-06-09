@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <video class="tech-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1200&q=80">
+      <source src="https://videos.pexels.com/video-files/854949/854949-hd_1920_1080_30fps.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+
     <div class="page-shell">
       <div class="background-glow glow-one"></div>
       <div class="background-glow glow-two"></div>
@@ -25,11 +30,16 @@
       <header class="hero-card glass-panel">
         <div class="hero-copy">
           <h2 class="eyebrow">Hi I'm</h2>
-          <h1>Abhinand Suresh</h1>
+          <h1 class="name-split" aria-label="Abhinand Suresh">Abhinand Suresh</h1>
           <p class="tagline">
-            I blend motion, storytelling, and clean web design to create experiences that feel
-            energetic and memorable.
+            I create polished digital experiences through video storytelling, modern UI design,
+            and a thoughtful approach to visual communication.
           </p>
+          <div class="hero-highlights">
+            <article>Creative Direction</article>
+            <article>Web & UI Design</article>
+            <article>Fast, clean delivery</article>
+          </div>
           <div class="chip-row">
             <span class="chip">Video Editing</span>
             <span class="chip">Web Design</span>
@@ -61,70 +71,65 @@
       <main class="content-grid">
         <section id="about" class="glass-panel section-card">
           <p class="eyebrow">About</p>
-          <h2>Who I am</h2>
+          <h2>Professional Snapshot</h2>
           <p>
-            I am a creative-minded individual who enjoys turning ideas into engaging visuals.
-            Whether it is editing videos for impact or designing a webpage with personality, I
-            focus on clarity, style, and emotion.
+            I am a creative professional focused on turning ideas into visually compelling digital work.
+            My strength lies in combining storytelling, design discipline, and smooth execution to
+            build content that feels modern and trustworthy.
           </p>
           <p>
-            My interest lies in making digital content feel alive — from cinematic transitions to
-            smooth user experiences on the web.
+            From cinematic edits to responsive web pages, I aim for clarity, polish, and a strong
+            sense of personality in every project.
           </p>
+          <ul class="mini-list">
+            <li>Focused on visual storytelling and clean presentation</li>
+            <li>Comfortable working across editing and web design workflows</li>
+            <li>Committed to professional, detail-driven execution</li>
+          </ul>
         </section>
 
         <section id="skills" class="glass-panel section-card">
           <p class="eyebrow">Skills</p>
-          <h2>What I love</h2>
+          <h2>Core Strengths</h2>
           <div class="interest-grid">
-            <article>
-              <h3>Video Editing</h3>
-              <p>Crafting compelling clips with pacing, rhythm, and visual polish.</p>
-            </article>
-            <article>
-              <h3>Creating Webpages</h3>
-              <p>Designing interfaces that are clean, responsive, and full of personality.</p>
-            </article>
-            <article>
-              <h3>Creative Design</h3>
-              <p>Exploring modern layouts, effects, and micro-interactions for impact.</p>
-            </article>
+            <button class="flip-card" type="button" aria-label="Video Editing">
+              <span class="flip-card-front">Video Editing</span>
+              <span class="flip-card-back">Crafting compelling clips with pacing, rhythm, and visual polish for social, brand, and story-driven content.</span>
+            </button>
+            <button class="flip-card" type="button" aria-label="Creating Webpages">
+              <span class="flip-card-front">Creating Webpages</span>
+              <span class="flip-card-back">Designing responsive interfaces that balance beauty, usability, and a strong professional brand presence.</span>
+            </button>
+            <button class="flip-card" type="button" aria-label="Creative Design">
+              <span class="flip-card-front">Creative Design</span>
+              <span class="flip-card-back">Building modern layouts, motion-friendly visuals, and micro-interactions that make browsing feel alive.</span>
+            </button>
+            <button class="flip-card" type="button" aria-label="Communication">
+              <span class="flip-card-front">Communication</span>
+              <span class="flip-card-back">Turning ideas into clear visuals and concise creative direction that keeps every project aligned.</span>
+            </button>
           </div>
         </section>
 
         <section id="contact" class="glass-panel section-card">
           <p class="eyebrow">Contact</p>
-          <h2>Reach out</h2>
+          <h2>Let’s Build Something Strong</h2>
           <p>
-            Want to collaborate on a video edit, webpage, or creative project? Send me an email at
-            <a class="mail-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=abhinandsuresh207@gmail.com" target="_blank" rel="noopener noreferrer">abhinandsuresh207@gmail.com</a>.
+            Whether you need a creative edit, a refined web page, or a polished visual concept,
+            I would be glad to collaborate. Reach out directly via email for quick discussions and
+            project planning.
           </p>
+          <a class="btn btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=abhinandsuresh207@gmail.com" target="_blank" rel="noopener noreferrer">Start a conversation</a>
         </section>
       </main>
     </div>
 
-    <div class="sticky-wrap">
-      <button id="aboutFab" class="about-fab" type="button" aria-label="Show profile sections and explanations">
-        Tap: About • Skills • Contact
-      </button>
-      <p class="sticky-note">Touch the button to learn what each section contains.</p>
-    </div>
-
-    <aside id="aboutPanel" class="about-panel glass-panel" aria-live="polite">
-      <h3>What this button explains</h3>
-      <ul class="mini-list">
-        <li><strong>About:</strong> who I am and my creative focus.</li>
-        <li><strong>Skills:</strong> video editing, webpage creation, and design ideas.</li>
-        <li><strong>Contact:</strong> direct Gmail message to reach me quickly.</li>
-      </ul>
-      <p>Use the links below to jump straight to the section you want.</p>
-      <ul class="mini-list">
-        <li><a class="mail-link" href="#about">Go to About</a></li>
-        <li><a class="mail-link" href="#skills">Go to Skills</a></li>
-        <li><a class="mail-link" href="#contact">Go to Contact</a></li>
-      </ul>
-      <a class="btn btn-primary full-width" href="https://mail.google.com/mail/?view=cm&fs=1&to=abhinandsuresh207@gmail.com" target="_blank" rel="noopener noreferrer">Email me</a>
-    </aside>
+    <nav class="sticky-wrap" aria-label="Quick navigation">
+      <a class="about-fab" href="#about">About</a>
+      <a class="about-fab" href="#skills">Skills</a>
+      <a class="about-fab" href="#contact">Contact</a>
+      <p class="sticky-note">Quick jump panel for mobile and desktop.</p>
+    </nav>
 
     <div id="cursorGlow" class="cursor-glow" aria-hidden="true"></div>
     <script src="script.js"></script>

@@ -1,27 +1,43 @@
-const aboutFab = document.getElementById('aboutFab');
-const aboutPanel = document.getElementById('aboutPanel');
 const cursorGlow = document.getElementById('cursorGlow');
+const flipCards = document.querySelectorAll('.flip-card');
+const nameSplit = document.querySelector('.name-split');
 
-aboutFab?.addEventListener('click', () => {
-  aboutPanel.classList.toggle('open');
+if (nameSplit) {
+  nameSplit.innerHTML = Array.from(nameSplit.textContent).map((char, index) => {
+    const safeChar = char === ' ' ? '&nbsp;' : char;
+    return `<span class="name-char" style="--i:${index}">${safeChar}</span>`;
+  }).join('');
+}
+
+flipCards.forEach((card) => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', String(card.classList.contains('is-flipped')));
+  });
 });
 
 function moveCursor(event) {
-  cursorGlow.style.left = `${event.clientX}px`;
-  cursorGlow.style.top = `${event.clientY}px`;
+  if (!cursorGlow || window.matchMedia('(max-width: 640px)').matches) return;
+  const point = event.touches?.[0] || event;
+  cursorGlow.style.left = `${point.clientX}px`;
+  cursorGlow.style.top = `${point.clientY}px`;
   cursorGlow.style.opacity = '1';
+  cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
 }
 
-window.addEventListener('mousemove', moveCursor);
-window.addEventListener('touchmove', (event) => {
-  const touch = event.touches[0];
-  if (touch) {
-    moveCursor({ clientX: touch.clientX, clientY: touch.clientY });
-  }
-}, { passive: true });
+window.addEventListener('pointermove', moveCursor, { passive: true });
+window.addEventListener('touchmove', moveCursor, { passive: true });
 
 window.addEventListener('mouseleave', () => {
-  cursorGlow.style.opacity = '0';
+  if (cursorGlow) cursorGlow.style.opacity = '0';
+});
+
+window.addEventListener('pointerleave', () => {
+  if (cursorGlow) cursorGlow.style.opacity = '0';
+});
+
+window.addEventListener('blur', () => {
+  if (cursorGlow) cursorGlow.style.opacity = '0';
 });
 
 window.addEventListener('touchstart', (event) => {
@@ -35,6 +51,18 @@ window.addEventListener('touchstart', (event) => {
     setTimeout(() => ripple.remove(), 700);
   }
 }, { passive: true });
+
+window.addEventListener('pointerdown', (event) => {
+  if (!cursorGlow) return;
+  cursorGlow.style.transform = 'translate(-50%, -50%) scale(0.92)';
+  if (event.pointerType === 'touch') {
+    moveCursor(event);
+  }
+});
+
+window.addEventListener('pointerup', () => {
+  if (cursorGlow) cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
+});
 
 const style = document.createElement('style');
 style.textContent = `
@@ -52,6 +80,9 @@ style.textContent = `
   @keyframes ripple {
     from { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
     to { transform: translate(-50%, -50%) scale(18); opacity: 0; }
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(110%); }
   }
 `;
 document.head.appendChild(style);
